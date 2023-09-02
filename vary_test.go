@@ -29,7 +29,7 @@ var _ = iA.Add(&C{})
 func TestNew(t *testing.T) {
 	g := got.T(t)
 
-	g.Len(vary.Reg[iA.ID()].Implementations, 2)
+	g.Len(vary.Get(iA.ID()).Implementations, 2)
 }
 
 func TestID(t *testing.T) {

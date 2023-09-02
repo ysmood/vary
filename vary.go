@@ -2,15 +2,15 @@ package vary
 
 import "reflect"
 
-type Registry map[ID]*Interface
+type Interfaces map[ID]*Interface
 
-// NewRegistry registry.
-func NewRegistry() Registry {
-	return Registry{}
+// NewInterfaces registry.
+func NewInterfaces() Interfaces {
+	return Interfaces{}
 }
 
 // New interface.
-func (r Registry) New(v interface{}) *Interface {
+func (r Interfaces) New(v interface{}) *Interface {
 	t := reflect.TypeOf(v)
 
 	if t.Kind() != reflect.Ptr || t.Elem().Kind() != reflect.Interface {
