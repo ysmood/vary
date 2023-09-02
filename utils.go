@@ -1,14 +1,14 @@
 package vary
 
-// Reg is the default registry.
-var interfaces = NewInterfaces()
+// Default is the default registry.
+var Default = NewInterfaces()
 
-// New interface on the default interface registry.
+// New interface on the [Default].
 func New(v interface{}) *Interface {
-	return interfaces.New(v)
+	return Default.New(v)
 }
 
-// Get interface from the default interface registry.
+// Get interface from the [Default].
 func Get(id ID) *Interface {
-	return interfaces[id]
+	return Default[id]
 }
