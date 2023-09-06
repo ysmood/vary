@@ -2,7 +2,7 @@ package vary
 
 import "reflect"
 
-type Interfaces map[ID]*Interface
+type Interfaces map[TypeID]*Interface
 
 // NewInterfaces registry.
 func NewInterfaces() Interfaces {
@@ -17,7 +17,7 @@ func (r Interfaces) New(v interface{}) *Interface {
 		panic("must be an pointer to interface")
 	}
 
-	i := &Interface{Self: t.Elem(), Implementations: []reflect.Type{}}
+	i := &Interface{Self: t.Elem(), Implementations: map[TypeID]reflect.Type{}}
 
 	r[i.ID()] = i
 
@@ -26,11 +26,11 @@ func (r Interfaces) New(v interface{}) *Interface {
 
 type Interface struct {
 	Self            reflect.Type
-	Implementations []reflect.Type
+	Implementations map[TypeID]reflect.Type
 }
 
-func (i *Interface) ID() ID {
-	return NewID(i.Self)
+func (i *Interface) ID() TypeID {
+	return ID(i.Self)
 }
 
 func (i *Interface) Add(v interface{}) struct{} {
@@ -40,18 +40,25 @@ func (i *Interface) Add(v interface{}) struct{} {
 		panic("type does not implement interface: " + i.ID())
 	}
 
-	i.Implementations = append(i.Implementations, t)
+	i.Implementations[ID(t)] = t
 
 	return struct{}{}
 }
 
-// ID is a unique identifier for a type.
-type ID string
+// Has returns true if the v has bind to i.
+func (i *Interface) Has(v interface{}) bool {
+	t := reflect.TypeOf(v)
+	_, has := i.Implementations[ID(t)]
+	return has
+}
 
-// NewID for the type.
-func NewID(t reflect.Type) ID {
+// TypeID is a unique identifier for a type.
+type TypeID string
+
+// ID for the type.
+func ID(t reflect.Type) TypeID {
 	if t == nil {
 		return ""
 	}
-	return ID(t.PkgPath() + "." + t.Name())
+	return TypeID(t.PkgPath() + "." + t.Name())
 }

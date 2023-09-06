@@ -9,6 +9,6 @@ func New(v interface{}) *Interface {
 }
 
 // Get interface from the [Default].
-func Get(id ID) *Interface {
+func Get(id TypeID) *Interface {
 	return Default[id]
 }

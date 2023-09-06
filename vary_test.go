@@ -35,6 +35,7 @@ func TestNew(t *testing.T) {
 func TestID(t *testing.T) {
 	g := got.T(t)
 
-	g.Eq(vary.NewID(reflect.TypeOf(nil)), "")
-	g.Eq(vary.NewID(reflect.TypeOf(1)), ".int")
+	g.Eq(vary.ID(reflect.TypeOf(nil)), "")
+	g.Eq(vary.ID(reflect.TypeOf(1)), ".int")
+	g.True(iA.Has(B{}))
 }
