@@ -10,7 +10,7 @@ func NewInterfaces() Interfaces {
 }
 
 // New interface.
-func (r Interfaces) New(v interface{}) *Interface {
+func (r Interfaces) New(v interface{}, vs ...interface{}) *Interface {
 	t := reflect.TypeOf(v)
 
 	if t.Kind() != reflect.Ptr || t.Elem().Kind() != reflect.Interface {
@@ -20,6 +20,10 @@ func (r Interfaces) New(v interface{}) *Interface {
 	i := &Interface{Self: t.Elem(), Implementations: map[TypeID]reflect.Type{}}
 
 	r[i.ID()] = i
+
+	for _, v := range vs {
+		i.Add(v)
+	}
 
 	return i
 }

@@ -12,7 +12,7 @@ type A interface {
 	T()
 }
 
-var iA = vary.New(new(A))
+var iA = vary.New(new(A), &C{})
 
 type B struct{}
 
@@ -23,8 +23,6 @@ var _ = iA.Add(B{})
 type C struct{}
 
 func (c *C) T() {}
-
-var _ = iA.Add(&C{})
 
 func TestNew(t *testing.T) {
 	g := got.T(t)

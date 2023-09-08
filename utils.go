@@ -4,8 +4,8 @@ package vary
 var Default = NewInterfaces()
 
 // New interface on the [Default].
-func New(v interface{}) *Interface {
-	return Default.New(v)
+func New(v interface{}, vs ...interface{}) *Interface {
+	return Default.New(v, vs...)
 }
 
 // Get interface from the [Default].
