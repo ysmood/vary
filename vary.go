@@ -19,6 +19,10 @@ func (r Interfaces) New(v interface{}, vs ...interface{}) *Interface {
 
 	i := &Interface{Self: t.Elem(), Implementations: map[TypeID]reflect.Type{}}
 
+	if _, has := r[i.ID()]; has {
+		panic("interface already registered: " + i.ID())
+	}
+
 	r[i.ID()] = i
 
 	for _, v := range vs {

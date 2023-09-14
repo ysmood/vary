@@ -37,3 +37,11 @@ func TestID(t *testing.T) {
 	g.Eq(vary.ID(reflect.TypeOf(1)), ".int")
 	g.True(iA.Has(B{}))
 }
+
+func TestCollision(t *testing.T) {
+	g := got.T(t)
+
+	g.Eq(g.Panic(func() {
+		vary.New(new(A), &C{})
+	}), "interface already registered: github.com/ysmood/vary_test.A")
+}
