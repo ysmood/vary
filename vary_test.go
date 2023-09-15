@@ -36,6 +36,9 @@ func TestID(t *testing.T) {
 	g.Eq(vary.ID(reflect.TypeOf(nil)), "")
 	g.Eq(vary.ID(reflect.TypeOf(1)), ".int")
 	g.True(iA.Has(B{}))
+	g.True(iA.Has(&B{}))
+	g.True(iA.Has(&C{}))
+	g.False(iA.Has(C{}))
 }
 
 func TestCollision(t *testing.T) {
