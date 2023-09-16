@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/naturalselectionlabs/vary"
 	"github.com/ysmood/got"
-	"github.com/ysmood/vary"
 )
 
 type A interface {
@@ -46,5 +46,5 @@ func TestCollision(t *testing.T) {
 
 	g.Eq(g.Panic(func() {
 		vary.New(new(A), &C{})
-	}), "interface already registered: github.com/ysmood/vary_test.A")
+	}), "interface already registered: github.com/naturalselectionlabs/vary_test.A")
 }
