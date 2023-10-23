@@ -1,4 +1,4 @@
-module github.com/naturalselectionlabs/vary
+module github.com/ysmood/vary
 
 go 1.20
 
