@@ -18,7 +18,7 @@ type B struct{}
 
 func (b B) T() {}
 
-var _ = iA.Add(B{})
+var idB = iA.Add(B{})
 
 type C struct{}
 
@@ -33,6 +33,7 @@ func TestNew(t *testing.T) {
 func TestID(t *testing.T) {
 	g := got.T(t)
 
+	g.Eq(idB, "github.com/ysmood/vary_test.B")
 	g.Eq(vary.ID(reflect.TypeOf(nil)), "")
 	g.Eq(vary.ID(reflect.TypeOf(1)), ".int")
 	g.True(iA.Has(B{}))

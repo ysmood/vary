@@ -41,16 +41,17 @@ func (i *Interface) ID() TypeID {
 	return ID(i.Self)
 }
 
-func (i *Interface) Add(v interface{}) struct{} {
+func (i *Interface) Add(v interface{}) TypeID {
 	t := reflect.TypeOf(v)
 
 	if !t.Implements(i.Self) {
 		panic("type does not implement interface: " + i.ID())
 	}
 
-	i.Implementations[ID(t)] = t
+	id := ID(t)
+	i.Implementations[id] = t
 
-	return struct{}{}
+	return id
 }
 
 // Has returns true if the v has bind to i.
